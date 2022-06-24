@@ -5,7 +5,7 @@ export default createStore({
   state: {
     data: [],
     limit: 10,
-    url: 'https://jsonplaceholder.typicode.com/posts'
+    url: 'https://randomuser.me/api/',
   },
   mutations: {
     setData(state, data) {
@@ -20,7 +20,9 @@ export default createStore({
     async fetchData({state, commit}) {
       try {
         let res = await api(state.limit, state.url)
-        commit('setData', res.data)
+        console.log(res.data.results)
+        let resData = res.data.results
+        commit('setData', resData)
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +32,7 @@ export default createStore({
       try {
         commit('setLimit', state.limit = items)
         let res = await api(state.limit, state.url)
-        commit('setData', res.data)
+        commit('setData', res.data.results)
       } catch (error) {
         console.log(error);
       }
